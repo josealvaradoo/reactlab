@@ -27,6 +27,7 @@ export default class Navbar extends Component {
                     <ul className="navbar-nav from-m">
                         <li className="nav-item"><a>Mis cursos</a></li>
                         <li className="nav-item"><a>Suscripción</a></li>
+                        <li className="nav-item"><a className="live-class"><FontAwesome name="play" /> En Vivo</a></li>
                         <li className="nav-item nav-profile"><a>{ this.state.user.firstname } { this.state.user.lastname } <div className="avatar"><img src={ avatar } alt={ this.state.user.firstname }/></div></a></li>
                     </ul>
                     <div className="navbar-toggle to-m"><FontAwesome name="bars" /></div>

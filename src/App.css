@@ -89,13 +89,28 @@ body {
     max-width: 35px;
 }
 .navbar-nav .nav-item.nav-profile a:hover {
-    background-color: none;
+    background-color: transparent;
 }
 .navbar-nav .nav-item a:hover {
     background-color: #e2e2e2;
 }
 .navbar .navbar-nav .nav-item .button {
     margin: .8rem 0;
+}
+.navbar .navbar-nav .nav-item .live-class {
+    display: inline-block;
+    margin: 0 .5rem;
+    padding: .5rem;
+    border-radius: 3px;
+    border: 2px solid var(--danger-color);
+    color: var(--danger-color);
+}
+.navbar .navbar-nav .nav-item .live-class .fa{
+    margin-right: .4rem;
+}
+.navbar .navbar-nav .nav-item .live-class:hover {
+    background-color: var(--danger-color);
+    color: white;
 }
 /*_____________________________________________________________________________________
 *|
