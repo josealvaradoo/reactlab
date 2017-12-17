@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Alert from '../Alerts/Alert';
+import store from '../../store';
 
 export default class FormAuth extends Component {
     constructor() {
@@ -11,6 +12,13 @@ export default class FormAuth extends Component {
             authenticate: null,
             token: null
         }
+
+        store.subscribe(() => {
+            this.setState({
+                authenticate: store.getState().authenticate,
+                user: store.getState().user
+            })
+        })
 
         this.authenticate = this.authenticate.bind(this);
     }
@@ -27,12 +35,14 @@ export default class FormAuth extends Component {
         // API Request
         axios.post('https://app.ed.team:1901/api/v1/login', data)
              .then(response => {
-                 console.log(response)
                  // Clear input
                  document.getElementById('email').value= '';
                  document.getElementById('password').value= '';
                  // Show notification
-                 if(response.status === 200) this.setState({ authenticate: true });
+                 if(response.status === 200) {
+                    this.userAuthenticate(response.data.data.user, true);
+                    this.setState({ authenticate: true });
+                 }
              })
              .catch(err => {
                  console.log(err)
@@ -47,8 +57,6 @@ export default class FormAuth extends Component {
                 notification[0].classList.add('bounceOutDown');
             }
         }, 5000);
-
-        this.setState({ authenticate: null });
     }
 
     render() {
@@ -56,7 +64,7 @@ export default class FormAuth extends Component {
         const notifications = () => {
             switch(this.state.authenticate) {
                 case true:
-                    return <Alert type="success" title="Successful" text="Has iniciado sesión exitosamente"/>
+                    return <Alert type="success" title={`Bienvenido ${this.state.user.firstname}`} text="Has iniciado sesión exitosamente"/>
                 case false:
                     return <Alert type="danger" title="Error" text="Las credenciales no coinciden"/>
                 default:
@@ -81,5 +89,13 @@ export default class FormAuth extends Component {
                 { notifications() }
             </form>
         )
+    }
+
+    userAuthenticate(user, authenticate) {
+        store.dispatch({
+            type: 'AUTHENTICATE',
+            user,
+            authenticate
+        })
     }
 }
