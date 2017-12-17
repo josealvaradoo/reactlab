@@ -7,11 +7,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 user: action.user,
-                authenticate: action.authenticate
+                auth: action.auth
             }
         default:
             return state;
     }
 }
 
-export default createStore(reducer, {courses: [], user: {}, authenticate: false});
+export default createStore(reducer, {courses: [], user: {}, auth: false});

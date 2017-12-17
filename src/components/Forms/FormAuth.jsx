@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Alert from '../Alerts/Alert';
 import store from '../../store';
+import { authenticate } from '../../actionCreators';
 
 export default class FormAuth extends Component {
     constructor() {
@@ -9,13 +10,13 @@ export default class FormAuth extends Component {
         this.state = {
             courses: [],
             user: {},
-            authenticate: null,
+            auth: null,
             token: null
         }
 
         store.subscribe(() => {
             this.setState({
-                authenticate: store.getState().authenticate,
+                auth: store.getState().auth,
                 user: store.getState().user
             })
         })
@@ -30,8 +31,6 @@ export default class FormAuth extends Component {
         let email = form.email.value;
         let password = form.password.value;
         const data = { email, password };
-        //const headers = { 'Content-Type': 'application/json' };
-        console.log(data);
         // API Request
         axios.post('https://app.ed.team:1901/api/v1/login', data)
              .then(response => {
@@ -41,13 +40,13 @@ export default class FormAuth extends Component {
                  // Show notification
                  if(response.status === 200) {
                     this.userAuthenticate(response.data.data.user, true);
-                    this.setState({ authenticate: true });
+                    this.setState({ auth: true });
                  }
              })
              .catch(err => {
                  console.log(err)
                  // Show notification
-                 this.setState({ authenticate: false });
+                 this.setState({ auth: false });
              })
 
         // Remove notification
@@ -62,7 +61,7 @@ export default class FormAuth extends Component {
     render() {
         // Select a notification to show to user
         const notifications = () => {
-            switch(this.state.authenticate) {
+            switch(this.state.auth) {
                 case true:
                     return <Alert type="success" title={`Bienvenido ${this.state.user.firstname}`} text="Has iniciado sesión exitosamente"/>
                 case false:
@@ -91,11 +90,7 @@ export default class FormAuth extends Component {
         )
     }
 
-    userAuthenticate(user, authenticate) {
-        store.dispatch({
-            type: 'AUTHENTICATE',
-            user,
-            authenticate
-        })
+    userAuthenticate(user, auth) {
+        store.dispatch(authenticate(user, auth));
     }
 }
