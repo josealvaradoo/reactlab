@@ -1,8 +1,14 @@
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
+import store from '../../store';
+import { closeSession } from '../../actionCreators';
 import { connect } from 'react-redux';
 import EDteam from '../../assets/images/edteam.png';
 import avatar from '../../assets/images/avatar.jpg';
+
+const toggleNavbar = () => {
+    document.getElementsByClassName('nav-dropdown')[0].classList.toggle('active');
+}
 
 const AuthMenu = (props) => {
     if(props.auth) {
@@ -12,7 +18,12 @@ const AuthMenu = (props) => {
                 <li className="nav-item"><a>Mis cursos</a></li>
                 <li className="nav-item"><a>Suscripción</a></li>
                 <li className="nav-item"><a className="live-class"><FontAwesome name="play" /> En Vivo</a></li>
-                <li className="nav-item nav-profile"><a>{ props.user.firstname } { props.user.lastname } <div className="avatar"><img src={ avatar } alt={ props.user.firstname }/></div></a></li>
+                <li className="nav-item nav-profile dropdown" onClick={ toggleNavbar }>
+                    <a>{ props.user.firstname } { props.user.lastname } <div className="avatar"><img src={ avatar } alt={ props.user.firstname }/></div></a>
+                    <ul className="nav-dropdown">
+                        <li className="dropdown-item"><a onClick={ props.handleCloseSession }>Salir</a></li>
+                    </ul>
+                </li>
             </ul>
             <div className="navbar-toggle to-m"><FontAwesome name="bars" /></div>
             </React.Fragment>
@@ -48,7 +59,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        handleCloseSession() {
+            store.dispatch(closeSession());
+        }
     }
 }
 

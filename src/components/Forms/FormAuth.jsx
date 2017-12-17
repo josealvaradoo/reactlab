@@ -17,7 +17,8 @@ export default class FormAuth extends Component {
         store.subscribe(() => {
             this.setState({
                 auth: store.getState().auth,
-                user: store.getState().user
+                user: store.getState().user,
+                token: store.getState().token
             })
         })
 
@@ -39,7 +40,7 @@ export default class FormAuth extends Component {
                  document.getElementById('password').value= '';
                  // Show notification
                  if(response.status === 200) {
-                    this.userAuthenticate(response.data.data.user, true);
+                    this.userAuthenticate(response.data.data.user, true, response.data.data.token);
                     this.setState({ auth: true });
                  }
              })
@@ -71,26 +72,28 @@ export default class FormAuth extends Component {
             }
         }
 
-        return (
-            <form onSubmit={ this.authenticate } className="form">
-                <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <input type="email" name="email" autoComplete="off" required="required" className="form-control" id="email"/>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <input type="password" name="password" autoComplete="off" required="required" className="form-control" id="password"/>
-                </div>
-                <div className="form-group main-end">
-                    <button type="submit" className="button btn-primary btn-block">Acceder</button>
-                </div>
-                <br/>
-                { notifications() }
-            </form>
-        )
+        if(!this.state.auth) {
+            return (
+                <form onSubmit={ this.authenticate } className="form">
+                    <div className="form-group">
+                        <label htmlFor="email">Email</label>
+                        <input type="email" name="email" autoComplete="off" required="required" className="form-control" id="email"/>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="password">Password</label>
+                        <input type="password" name="password" autoComplete="off" required="required" className="form-control" id="password"/>
+                    </div>
+                    <div className="form-group main-end">
+                        <button type="submit" className="button btn-primary btn-block">Acceder</button>
+                    </div>
+                </form>
+            )
+        } else {
+            return null;
+        }
     }
 
-    userAuthenticate(user, auth) {
-        store.dispatch(authenticate(user, auth));
+    userAuthenticate(user, auth, token) {
+        store.dispatch(authenticate(user, auth, token));
     }
 }

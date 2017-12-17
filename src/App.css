@@ -112,6 +112,30 @@ body {
     background-color: var(--danger-color);
     color: white;
 }
+.navbar .navbar-nav .nav-item.dropdown {
+    position: relative;
+}
+.navbar .navbar-nav .nav-item.dropdown .nav-dropdown {
+    display: none;
+    position: absolute;
+    bottom: -56px;
+    right: 0;
+    z-index: 10;
+    border-radius: 2px;
+    border: 1px solid #d7d7d7;
+    border-top: 0;
+}
+.navbar .navbar-nav .nav-item.dropdown .nav-dropdown.active {
+    display: inline-block;
+}
+.dropdown-item {
+    min-width: 160px;
+    color: #111;
+}
+.dropdown-item:hover {
+    border-top: 1px solid #d7d7d7;
+    background-color: #ececec;
+}
 /*_____________________________________________________________________________________
 *|
 *| Forms

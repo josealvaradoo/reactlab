@@ -1,11 +1,19 @@
-const authenticate = (user, auth) => {
+const authenticate = (user, auth, token) => {
     return {
         type: 'AUTHENTICATE',
         user,
-        auth
+        auth,
+        token
+    }
+}
+
+const closeSession = () => {
+    return {
+        type: 'CLOSE_SESSION'
     }
 }
 
 export {
-    authenticate
+    authenticate,
+    closeSession
 }
