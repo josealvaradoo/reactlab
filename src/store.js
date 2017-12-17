@@ -14,4 +14,4 @@ const reducer = (state, action) => {
     }
 }
 
-export default createStore(reducer, {courses: [], user: {}, auth: false});
+export default createStore(reducer, {courses: [], user: {}, auth: false, token: null});

@@ -74,19 +74,25 @@ export default class FormAuth extends Component {
 
         if(!this.state.auth) {
             return (
-                <form onSubmit={ this.authenticate } className="form">
-                    <div className="form-group">
-                        <label htmlFor="email">Email</label>
-                        <input type="email" name="email" autoComplete="off" required="required" className="form-control" id="email"/>
+                <main className="main cross-center">
+				    <div className="ed-container ed-fluid main-center">
+    					<div className="ed-item m-35">
+                            <form onSubmit={ this.authenticate } className="form">
+                                <div className="form-group">
+                                    <label htmlFor="email">Email</label>
+                                    <input type="email" name="email" autoComplete="off" required="required" className="form-control" id="email"/>
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="password">Password</label>
+                                    <input type="password" name="password" autoComplete="off" required="required" className="form-control" id="password"/>
+                                </div>
+                                <div className="form-group main-end">
+                                    <button type="submit" className="button btn-primary btn-block">Acceder</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="password">Password</label>
-                        <input type="password" name="password" autoComplete="off" required="required" className="form-control" id="password"/>
-                    </div>
-                    <div className="form-group main-end">
-                        <button type="submit" className="button btn-primary btn-block">Acceder</button>
-                    </div>
-                </form>
+                </main>
             )
         } else {
             return null;

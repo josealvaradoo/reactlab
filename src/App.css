@@ -75,7 +75,8 @@ body {
     font-size: 2rem;
     color: #555;
 }
-.navbar-nav .nav-item.nav-profile .avatar {
+.navbar-nav .nav-item.nav-profile .avatar,
+.course .avatar {
     display: inline-block;
     margin: -1rem 0;
     margin-left: .4rem;
@@ -83,7 +84,8 @@ body {
     border: 1px solid #ccc;
     overflow: hidden;
 }
-.navbar-nav .nav-item.nav-profile .avatar img {
+.navbar-nav .nav-item.nav-profile .avatar img,
+.course .avatar img {
     margin: 0;
     padding: 0;
     max-width: 35px;
@@ -135,6 +137,49 @@ body {
 .dropdown-item:hover {
     border-top: 1px solid #d7d7d7;
     background-color: #ececec;
+}
+/*_____________________________________________________________________________________
+*|
+*| Courses
+*|_____________________________________________________________________________________
+*/
+.course {
+    border-radius: 3px;
+    overflow: hidden;
+}
+.course-body,
+.course-footer {
+    padding: 1rem;
+    border-left: 1px solid #d7d7d7;
+    border-right: 1px solid #d7d7d7;
+}
+.course-cover {
+    max-height: 200px;
+    overflow: hidden;
+}
+.course-footer {
+    padding: 1rem;
+    border: 1px solid #d7d7d7;
+}
+.course-title {
+    margin-bottom: .5rem;
+    font-weight: 800;
+    color: #222;
+}
+.course-price {
+    padding: .8rem 1.5rem;
+    border: 1px solid var(--danger-color);
+    border-radius: 2px;
+    color: var(--danger-color);
+    font-weight: 500;
+    cursor: pointer;
+}
+.course-price .fa {
+    margin-right: .5rem;
+}
+.course-price:hover {
+    color: white;
+    background-color: var(--danger-color);
 }
 /*_____________________________________________________________________________________
 *|
@@ -237,4 +282,10 @@ body {
 */
 .hide {
     display: none;
+}
+.margin-top {
+    margin-top: 1rem;
+}
+.margin-top--2 {
+    margin-top: 2rem;
 }
