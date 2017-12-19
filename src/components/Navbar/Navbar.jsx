@@ -3,7 +3,7 @@ import FontAwesome from 'react-fontawesome';
 import store from '../../store';
 import { closeSession } from '../../actionCreators';
 import { connect } from 'react-redux';
-import EDteam from '../../assets/images/edteam.png';
+//import EDteam from '../../assets/images/edteam.png';
 import avatar from '../../assets/images/avatar.jpg';
 
 const toggleNavbar = () => {
@@ -11,7 +11,7 @@ const toggleNavbar = () => {
 }
 
 const AuthMenu = (props) => {
-    if(props.auth) {
+    if(props.token) {
         return(
             <React.Fragment>
             <ul className="navbar-nav from-m">
@@ -42,7 +42,7 @@ const Navbar = props => {
         <nav className="navbar">
             <div className="ed-container ed-fluid">
                 <div className="ed-item main-justify">
-                    <h1 className="navbar-brand"><img src={ EDteam } className="logo" alt="EDteam" /></h1>
+                    <h1 className="navbar-brand"><img src="https://ed.team/themes/custom/escueladigital/img/EDteam-logo.svg?12-oct" className="logo" alt="EDteam" /></h1>
                     { AuthMenu(props) }
                 </div>
             </div>
@@ -53,7 +53,8 @@ const Navbar = props => {
 const mapStateToProps = state => {
     return {
         user: state.user,
-        auth: state.auth
+        auth: state.auth,
+        token: state.token
     }
 }
 

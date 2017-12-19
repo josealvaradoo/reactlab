@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Alert from '../Alerts/Alert';
 import store from '../../store';
 import { authenticate } from '../../actionCreators';
+import { BrowserRouter as Router, Redirect, Switch } from 'react-router-dom';
 
 export default class FormAuth extends Component {
     constructor() {
@@ -41,7 +41,7 @@ export default class FormAuth extends Component {
                  // Show notification
                  if(response.status === 200) {
                     this.userAuthenticate(response.data.data.user, true, response.data.data.token);
-                    this.setState({ auth: true });
+                    localStorage.setItem('token', response.data.data.token);
                  }
              })
              .catch(err => {
@@ -60,19 +60,7 @@ export default class FormAuth extends Component {
     }
 
     render() {
-        // Select a notification to show to user
-        const notifications = () => {
-            switch(this.state.auth) {
-                case true:
-                    return <Alert type="success" title={`Bienvenido ${this.state.user.firstname}`} text="Has iniciado sesión exitosamente"/>
-                case false:
-                    return <Alert type="danger" title="Error" text="Las credenciales no coinciden"/>
-                default:
-                    return null;
-            }
-        }
-
-        if(!this.state.auth) {
+        if(localStorage.getItem('token') === null) {
             return (
                 <main className="main cross-center">
 				    <div className="ed-container ed-fluid main-center">
@@ -95,7 +83,13 @@ export default class FormAuth extends Component {
                 </main>
             )
         } else {
-            return null;
+            return (
+                <Router>
+                    <Switch>
+                        <Redirect to='courses'/>
+                    </Switch>
+                </Router>
+            )
         }
     }
 

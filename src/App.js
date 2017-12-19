@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import FormAuth from './components/Forms/FormAuth';
 import Navbar from './components/Navbar/Navbar';
 import Courses from './components/Courses/Courses';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+import PrivateRoute from './pages/PrivateRoute';
 import { connect } from 'react-redux';
 import './assets/css/ed-grid.min.css';
 import './App.css';
@@ -10,10 +12,15 @@ import 'font-awesome/css/font-awesome.min.css';
 
 const App = (props) => {
 	return (
+		<Router>
 		<div className="App">
-			<Navbar />
-			{ (props.token === null) ? <FormAuth /> : <Courses /> }
+				<Navbar />
+				<Switch>
+					<Route exact path='/' component={ FormAuth } />
+					<PrivateRoute exact path='/courses' token={ props.token } component={ Courses }/>
+				</Switch>
 		</div>
+		</Router>
 	);
 }
 

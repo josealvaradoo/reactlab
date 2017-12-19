@@ -14,7 +14,7 @@ function Course(props) {
             </div>
             <div className="course-footer main-justify cross-center">
                 <div className="course-author">
-                    <div className="avatar"><img src={ avatar }/></div>
+                    <div className="avatar"><img src={ avatar } alt="Avatar de usuario" /></div>
                 </div>
                 <div className="course-price text-uppercase"><FontAwesome name="shopping-cart" />Free</div>
             </div>
