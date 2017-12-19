@@ -2,7 +2,7 @@ import React from 'react';
 import FormAuth from './components/Forms/FormAuth';
 import Navbar from './components/Navbar/Navbar';
 import Courses from './components/Courses/Courses';
-import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import PrivateRoute from './pages/PrivateRoute';
 import { connect } from 'react-redux';
 import './assets/css/ed-grid.min.css';
@@ -16,7 +16,12 @@ const App = (props) => {
 		<div className="App">
 				<Navbar />
 				<Switch>
-					<Route exact path='/' component={ FormAuth } />
+					<Route exact path='/' render={() => (
+						props.token ? (
+							<Redirect to="/courses"/>
+						) : (
+							<FormAuth />
+						))} />
 					<PrivateRoute exact path='/courses' token={ props.token } component={ Courses }/>
 				</Switch>
 		</div>

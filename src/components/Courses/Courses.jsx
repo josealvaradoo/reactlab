@@ -1,6 +1,5 @@
 import React from 'react';
 import Course from './Course';
-import { BrowserRouter as Router, Redirect } from 'react-router-dom';
 
 function Courses() {
     console.log(localStorage.getItem('token'))

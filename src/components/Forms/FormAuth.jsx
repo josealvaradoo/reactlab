@@ -42,6 +42,11 @@ export default class FormAuth extends Component {
                  if(response.status === 200) {
                     this.userAuthenticate(response.data.data.user, true, response.data.data.token);
                     localStorage.setItem('token', response.data.data.token);
+                    return (
+                        <Router>
+                            <Redirect to='courses'/>
+                        </Router>
+                    )
                  }
              })
              .catch(err => {
@@ -57,6 +62,16 @@ export default class FormAuth extends Component {
                 notification[0].classList.add('bounceOutDown');
             }
         }, 5000);
+    }
+
+    componentWillMount() {
+        if(!localStorage.getItem('token')) {
+            return (
+                <Router>
+                    <Redirect to='courses'/>
+                </Router>
+            )
+        }
     }
 
     render() {
@@ -83,13 +98,7 @@ export default class FormAuth extends Component {
                 </main>
             )
         } else {
-            return (
-                <Router>
-                    <Switch>
-                        <Redirect to='courses'/>
-                    </Switch>
-                </Router>
-            )
+            return null;
         }
     }
 
