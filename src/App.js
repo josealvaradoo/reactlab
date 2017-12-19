@@ -11,16 +11,17 @@ import 'animate.css';
 import 'font-awesome/css/font-awesome.min.css';
 
 const App = (props) => {
+	console.log(props.token)
 	return (
 		<Router>
 		<div className="App">
 				<Navbar />
 				<Switch>
 					<Route exact path='/' render={() => (
-						(props.token !== null) ? (
-							<Redirect to="/courses"/>
-						) : (
+						(props.token === null) ? (
 							<FormAuth />
+						) : (
+							<Redirect to='courses'/>
 						))} />
 					<PrivateRoute exact path='/courses' token={ props.token } component={ Courses }/>
 				</Switch>

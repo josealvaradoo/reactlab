@@ -1,4 +1,4 @@
-const authenticate = (user, auth, token) => {
+const authenticate = (user, token) => {
     return {
         type: 'AUTHENTICATE',
         user,

@@ -32,6 +32,7 @@ export default class FormAuth extends Component {
                  if(response.status === 200) {
                     this.userAuthenticate(response.data.data.user, response.data.data.token);
                     localStorage.setItem('token', response.data.data.token);
+                    localStorage.setItem('user', response.data.data.user);
                  }
              })
              .catch(err => {
@@ -40,7 +41,8 @@ export default class FormAuth extends Component {
     }
 
     render() {
-        if(localStorage.getItem('token') === null) {
+        console.log(this.state.token)
+        if(this.state.token === null) {
             return (
                 <main className="main cross-center">
 				    <div className="ed-container ed-fluid main-center">
@@ -63,7 +65,7 @@ export default class FormAuth extends Component {
                 </main>
             )
         } else {
-            return null;
+            return false;
         }
     }
 
