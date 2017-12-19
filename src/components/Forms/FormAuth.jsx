@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import store from '../../store';
 import { authenticate } from '../../actionCreators';
-import { BrowserRouter as Router, Redirect, Switch } from 'react-router-dom';
 
 export default class FormAuth extends Component {
     constructor() {
@@ -10,17 +9,8 @@ export default class FormAuth extends Component {
         this.state = {
             courses: [],
             user: {},
-            auth: null,
             token: null
         }
-
-        store.subscribe(() => {
-            this.setState({
-                auth: store.getState().auth,
-                user: store.getState().user,
-                token: store.getState().token
-            })
-        })
 
         this.authenticate = this.authenticate.bind(this);
     }
@@ -38,40 +28,15 @@ export default class FormAuth extends Component {
                  // Clear input
                  document.getElementById('email').value= '';
                  document.getElementById('password').value= '';
-                 // Show notification
+                 // Logged!
                  if(response.status === 200) {
-                    this.userAuthenticate(response.data.data.user, true, response.data.data.token);
+                    this.userAuthenticate(response.data.data.user, response.data.data.token);
                     localStorage.setItem('token', response.data.data.token);
-                    return (
-                        <Router>
-                            <Redirect to='courses'/>
-                        </Router>
-                    )
                  }
              })
              .catch(err => {
                  console.log(err)
-                 // Show notification
-                 this.setState({ auth: false });
              })
-
-        // Remove notification
-        setTimeout(() => {
-            const notification = document.getElementsByClassName('alert');
-            if (notification.length > 0) {
-                notification[0].classList.add('bounceOutDown');
-            }
-        }, 5000);
-    }
-
-    componentWillMount() {
-        if(!localStorage.getItem('token')) {
-            return (
-                <Router>
-                    <Redirect to='courses'/>
-                </Router>
-            )
-        }
     }
 
     render() {
@@ -102,7 +67,7 @@ export default class FormAuth extends Component {
         }
     }
 
-    userAuthenticate(user, auth, token) {
-        store.dispatch(authenticate(user, auth, token));
+    userAuthenticate(user, token) {
+        store.dispatch(authenticate(user, token));
     }
 }

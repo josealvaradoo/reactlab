@@ -1,8 +1,8 @@
 const closeSession = (state, action) => {
+    localStorage.removeItem('token');
     return {
         ...state,
         user: {},
-        auth: false,
         token: null
     }
 }

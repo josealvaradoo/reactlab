@@ -2,7 +2,6 @@ const authenticate = (user, auth, token) => {
     return {
         type: 'AUTHENTICATE',
         user,
-        auth,
         token
     }
 }

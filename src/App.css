@@ -52,6 +52,9 @@ body {
     align-items: center;
     color: #111;
 }
+.navbar-brand img {
+    max-width: 125px;
+}
 .navbar-nav {
     margin: 0;
     padding: 0;

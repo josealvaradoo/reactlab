@@ -17,6 +17,5 @@ const reducer = (state, action) => {
 export default createStore(reducer, {
     courses: [],
     user: {},
-    auth: false,
     token: localStorage.getItem('token')
 });

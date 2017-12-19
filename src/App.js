@@ -17,7 +17,7 @@ const App = (props) => {
 				<Navbar />
 				<Switch>
 					<Route exact path='/' render={() => (
-						props.token ? (
+						(props.token !== null) ? (
 							<Redirect to="/courses"/>
 						) : (
 							<FormAuth />
